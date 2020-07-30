@@ -17,6 +17,7 @@ const UserSchema = Schema({
 //Antes de que se guarde
 UserSchema.pre(/save/,(next)=>{
     let user = this;
+    //Check if password has been modified
     if(!user.isModified('password')) return next();
 
     bcrypt.genSalt(10,(err,salt,)=>{

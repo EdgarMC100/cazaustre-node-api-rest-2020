@@ -5,12 +5,16 @@ const mongoose = require("mongoose");
 const Product = require('./models/product');
 const productRoutes = require('./routes/products_routes');
 const bodyParser = require("body-parser");
-const config = require("./config")
+const config = require("./config");
+const authUserMiddleware = require("./middlewares/auth_user");
 
 let app = express();
 app.use(bodyParser.urlencoded({extended:false}));//var urlencoded = bodyParser.urlencoded({extended:false}); 
 app.use(bodyParser.json());// var jsonParser = bodyParser.json(); 
 app.use(productRoutes);
+app.get('/private',authUserMiddleware,function (req,res) {
+    res.status(200).send({message:"You have access"});
+})
 
 
 
