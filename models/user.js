@@ -18,11 +18,11 @@ const UserSchema = Schema({
 UserSchema.pre(/save/,(next)=>{
     let user = this;
     //Check if password has been modified
-    if(!user.isModified('password')) return next();
+    // if(!user.isModified('password')) return next();
 
     bcrypt.genSalt(10,(err,salt,)=>{
         if(err) return next()
-        bcrypt.hash(user.password,salt,(error,hashValue)=>{
+        bcrypt.hash(user.password,salt,null,(error,hashValue)=>{
             if(error) return next(err)
             user.password = hashValue
             next()
