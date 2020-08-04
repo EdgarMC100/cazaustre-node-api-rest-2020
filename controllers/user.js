@@ -5,6 +5,9 @@ const User = require('../models/user')
 const service = require('../services/jwtService')
 
 module.exports = {
+    logIn : (req,res)=>{
+        res.render('login');
+    },
     singUp : (req,res)=>{
         const user = new User({
             email: req.body.email,
@@ -23,7 +26,7 @@ module.exports = {
             //Password Verification
             req.user = user;
             
-            return res.status(200).send({message:'User authenticated',token:service.decodeToken(user)})
+            return res.status(200).send({message:'User authenticated',token:service.encodeToken(user)})
         });
     }
 }

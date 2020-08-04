@@ -1,0 +1,31 @@
+<form id="login" method="post">
+    <input type="email" name="email" value="" placeholder="Email">
+    <br><br>
+    <input type="password" name="password" value="" placeholder="Password">
+    <br><br>
+    <input type="submit" value="Login">
+</form>
+
+<script type="text/javascript">
+    const formLogin = document.querySelector('#login')
+    let json = {}
+
+    formLogin.addEventListener('submit',event=>{
+        event.preventDefault();
+        const formData = new FormData(formLogin)
+        formData.forEach(function(value,key){
+            json[key]=value;
+        })
+        fetch('/api/signin',{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+            body:JSON.stringify(json)
+        })
+        .then(res=>res.json())
+        .then(data=>console.log(data))
+        .catch(error=>console.error('Error:',error))
+    });
+
+</script>
