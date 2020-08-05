@@ -2,6 +2,12 @@ const Product = require('../models/product');
 const product = require('../models/product');
 
 module.exports = {
+    list:(req,res)=>{
+        res.render('products/list')
+    },
+    new:(req, res)=>{
+        res.render('products/new')
+    },
     create: (req,res)=>{
         console.log(req.body);
         let product = new Product();    

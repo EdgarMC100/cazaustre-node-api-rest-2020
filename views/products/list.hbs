@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    const ul = document.createElement('ul')
+    const authHeaders = new Headers();
+    authHeaders.append('authorization',`Bearer ${localStorage.token}`)
+
+    fetch('/api/products',{
+        method: 'get',
+        headers:authHeaders
+    })
+    .then(res=>res.json())
+    {{!-- .then(data=>console.log(data)) --}}
+    .then(data=>{
+        data.products.map(product=>{
+            if(product.name != undefined){
+                let text = document.createTextNode(product.name)
+                let element = document.createElement('li')
+                element.appendChild(text)
+                ul.appendChild(element);
+            }
+        })
+        document.body.appendChild(ul);
+        console.log(data)
+    })
+    .catch(error=>alert(error));
+</script>
