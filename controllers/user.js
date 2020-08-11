@@ -24,6 +24,9 @@ module.exports = {
             if(err)return res.status(500).send({message:`Error al logearse: ${err}`});
             if(!user)return res.status(404).send({message:`User with ${req.body.email} not found`});
             //Password Verification
+            if(req.body.password){
+                console.log("Comparar passwords")
+            }
             req.user = user;
             
             return res.status(200).send({message:'User authenticated',token:service.encodeToken(user)})
